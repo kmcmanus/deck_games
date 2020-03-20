@@ -1,12 +1,34 @@
+import json
 
 class GameState(object):
-  pass
+  def render(self):
+    return json.dumps(self.unrendered_data())
 
-class GameNotStarted(GameState):
-  pass
+class MessageState(GameState):
+  def __init__(self, message):
+    self.message = message
 
-class GameEnded(GameState):
-  pass
+  def unrendered_data(self):
+    return { "message": self.message }
 
-class GameFull(GameState):
-  pass
+class GameNotStarted(MessageState):
+  def __init__(self):
+    super().__init__(self, "This game has not started yet.")
+
+class GameEnded(MessageState):
+  def __init__(self):
+    super().__init__(self, "This game has ended.")
+
+class GameFull(MessageState):
+  def __init__(self):
+    super().__init__(self, "This game is full.")
+
+class JoinedGame(GameState):
+  def __init__(self, code):
+    self.code = code
+
+  def unrendered_data(self):
+    return {
+        "code": self.code,
+        "message": "You have joined this game. Please stand by."
+      }
