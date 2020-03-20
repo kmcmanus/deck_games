@@ -6,6 +6,9 @@ class GameState(object):
 
 class MessageState(GameState):
   def __init__(self, message):
+    """ Create a new message state.
+        @param message The message to render.
+    """
     self.message = message
 
   def unrendered_data(self):
@@ -15,16 +18,11 @@ class GameNotStarted(MessageState):
   def __init__(self):
     super().__init__(self, "This game has not started yet.")
 
-class GameEnded(MessageState):
-  def __init__(self):
-    super().__init__(self, "This game has ended.")
-
-class GameFull(MessageState):
-  def __init__(self):
-    super().__init__(self, "This game is full.")
-
 class JoinedGame(GameState):
   def __init__(self, code):
+    """ State to send when a user has joined a game.
+        @param code Their player-code for this game.
+    """
     self.code = code
 
   def unrendered_data(self):
