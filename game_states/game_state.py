@@ -30,3 +30,18 @@ class JoinedGame(GameState):
         "code": self.code,
         "message": "You have joined this game. Please stand by."
       }
+
+class CreatedGame(GameState):
+  def __init__(self, token, code):
+    """ State to send when a user has joined a game.
+        @param code Their player-code for this game.
+    """
+    self.code = code
+    self.token = token
+
+  def unrendered_data(self):
+    return {
+        "token": self.token,
+        "code": self.code,
+        "message": "You have created a game. Please share this token."
+      }

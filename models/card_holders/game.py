@@ -20,3 +20,8 @@ class Game(PublicCardHolder):
     return super().public_unrendered_data() + {
       "discarded": [ d.unrendered_data() for d in self.discarded ]
     }
+
+  def with_new_player(self, new_player):
+    new_game = self.copy()
+    new_game.players = new_game.players + new_player
+    return new_game
