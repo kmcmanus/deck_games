@@ -11,6 +11,7 @@ class CardHolder(PublicCardHolder):
     super().__init__(self, name, revealed)
     self.token = token
     self.deck = deck
+    self._valid_locations += "deck"
 
   def deck_size(self):
     """ Returns the size of the deck """
@@ -20,23 +21,3 @@ class CardHolder(PublicCardHolder):
     return super().public_unrendered_data() + {
       "deck_size": self.deck_size
     }
-
-  def without_deck(self):
-    new_holder = self.copy()
-    new_holder.deck = []
-    return new_holder
-
-  def take_cards_from(self, location):
-    if location == "deck":
-      return (self.deck, self.without_deck())
-    return super().take_cards_from(self, location)
-
-  def adding_deck_cards(self, cards):
-    new_holder = self.copy()
-    new_holder.deck = self.deck ++ cards
-    return new_holder
-
-  def add_cards_to(self, location, cards):
-    if location == "deck":
-      return self.adding_deck_cards(cards)
-    return super().add_cards_to(self, location, cards)

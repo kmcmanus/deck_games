@@ -15,6 +15,7 @@ class Game(PublicCardHolder):
     self.leader_token = leader_token
     self.started = started
     self.discard = discard
+    self._valid_locations += "discard"
 
   def public_unrended_data(self):
     return super().public_unrendered_data() + {
@@ -35,23 +36,3 @@ class Game(PublicCardHolder):
     new_game = self.copy()
     new_game.players = [ p if p.token != player_code else new_player ]
     return new_game
-
-  def without_discard(self):
-    new_holder = self.copy()
-    new_holder.discard = []
-    return new_holder
-
-  def take_cards_from(self, location):
-    if location == "discard":
-      return (self.discard, self.without_discard())
-    return super().take_cards_from(self, location)
-
-  def adding_discard_cards(self, cards):
-    new_holder = self.copy()
-    new_holder.discard = self.discard ++ cards
-    return new_holder
-
-  def add_cards_to(self, location, cards):
-    if location == "discard":
-      return self.adding_discard_cards(cards)
-    return super().add_cards_to(self, location, cards)

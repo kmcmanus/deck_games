@@ -21,15 +21,10 @@ class GiveCard(object):
     if not recipient:
       return (None, InvalidToken(self.recipient_name))
 
-    cards = [ c for c in player.hand if c.name == self.card_name ]
-
-    if len(cards) == 0:
+    (cardless_player, card) = player.take_card_from("hand", self.card_name)
+    if len(card) == 0:
       return (None, UnknownCard(self.card_name))
-
-    card = cards[0]
-
-    cardless_player = player.take_card_from_hand(card)
-    carded_player = recipient.add_card_to_hand(card)
+    carded_player = recipient.add_cards_to("hand", card)
 
     updated_game = game\
         .including_updated_player(cardless_player.code, cardless_player)\

@@ -2,7 +2,7 @@ from card_holders import Game, Player
 
 from game_state import Playing
 
-class ShuffleMyDeck(object):
+class MoveCards(object):
   def __init__(self, token, code, source, destination):
     self.code = code
     self.token = token
@@ -16,10 +16,10 @@ class ShuffleMyDeck(object):
     if not player:
       return (None, InvalidToken(self.code))
 
-    (cardless_game, game_cards) = game.take_cards_from(self.source)
-    (cardless_player, player_cards) = player.take_cards_from(self.source)
+    (cardless_game, game_card) = game.take_cards_from(self.source)
+    (cardless_player, player_card) = player.take_cards_from(self.source)
 
-    cards = game_cards ++ player_cards
+    cards = game_card ++ player_card
 
     updated_game = game\
         .add_cards_to(self.destination, cards)\
