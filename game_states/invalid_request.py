@@ -11,6 +11,11 @@ class DeckEmpty(InvalidRequest):
   def __init__(self):
     super().__init__(self, "The deck is empty")
 
+class UnknownDeck(InvalidRequest):
+  def __init__(self, deck):
+    self.deck = deck
+    super().__init__(self, "That is not a valid deck.")
+
 class UnknownCard(InvalidRequest):
   def __init__(self, card):
     self.card = card
