@@ -18,4 +18,4 @@ class JoinGame(object):
     player = Player(self.name, code)
     state = JoinedGame(player.code)
 
-    return (game.with_new_player(player), state)
+    return (game.including_new_player(player), state)

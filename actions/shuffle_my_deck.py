@@ -11,6 +11,6 @@ class ShuffleMyDeck(object):
     # TODO: lookup game by token
     game = None
     player = game.get_player(self.code).shuffle_deck()
-    game = game.with_updated_player(self.code, player)
+    game = game.including_updated_player(self.code, player)
     state = Playing(player, game.players, game)
     return (game, state)

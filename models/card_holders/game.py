@@ -21,7 +21,17 @@ class Game(PublicCardHolder):
       "discarded": [ d.unrendered_data() for d in self.discarded ]
     }
 
-  def with_new_player(self, new_player):
+  def start(self):
+    new_game = self.copy()
+    new_game.started = True
+    return new_game
+
+  def including_new_player(self, new_player):
     new_game = self.copy()
     new_game.players = new_game.players + new_player
+    return new_game
+
+  def including_updated_player(self, player_code, new_player):
+    new_game = self.copy()
+    new_game.players = [ p if p.token != player_code else new_player ]
     return new_game
