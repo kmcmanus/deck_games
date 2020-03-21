@@ -4,6 +4,8 @@ from game_state import CreatedGame, InvalidDeck
 
 from data import DECK_LOOKUP
 
+from helpers import generate_token
+
 class CreateGame(object):
   def __init__(self, name, deck_name, player_name):
     self.name = name
@@ -11,14 +13,12 @@ class CreateGame(object):
     self.player_name = player_name
 
   def perform(self):
-    # TODO: create player code
-    # TODO: generate token
-
     deck = DECK_LOOKUP[self.deck_name]
     if not deck:
       return (None, UnknownDeck(self.deck_name))
-    token = None
-    code = None
+    # todo get all existing tokens
+    token = generate_token(game_tokens)
+    code = generate_token()
 
     player = Player(self.player_name, code)
     game = Game(token, player.code, [ player ], false, [], [], deck)
