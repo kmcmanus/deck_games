@@ -17,3 +17,13 @@ class Player(CardHolder):
         "token": self.token,
         "hand": [ h.unrendered_data() for h in self.hand ]
       }
+
+  def take_card_from_hand(self, card):
+    new_player = self.copy()
+    new_player.hand.remove(card)
+    return new_player
+
+  def add_card_to_hand(self, card):
+    new_player = self.copy()
+    new_player.hand = new_player.hand + card
+    return new_player
