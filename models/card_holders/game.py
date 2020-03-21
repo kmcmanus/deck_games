@@ -1,24 +1,24 @@
 
 class Game(PublicCardHolder):
-  def __init__(self, code, leader_token, players, started, discarded=[], revealed=[], deck=[]):
+  def __init__(self, code, leader_token, players, started, discard=[], revealed=[], deck=[]):
     """ Creates a new player
         @param name The public name
         @param code The uniquely-identifying API token
         @param leader_token The token of the creating Player
         @param players A list of Players in the game
         @param started Whether or not the game has started
-        @param discarded The cards that have been discarded
+        @param discard The cards that have been discard
         @param revealed The publicly revealed Cards held
         @param deck The privately held Cards no one is aware of
     """
     super().__init__(self, '', code, revealed, deck)
     self.leader_token = leader_token
     self.started = started
-    self.discarded = discarded
+    self.discard = discard
 
   def public_unrended_data(self):
     return super().public_unrendered_data() + {
-      "discarded": [ d.unrendered_data() for d in self.discarded ]
+      "discard": [ d.unrendered_data() for d in self.discard ]
     }
 
   def start(self):
@@ -35,3 +35,23 @@ class Game(PublicCardHolder):
     new_game = self.copy()
     new_game.players = [ p if p.token != player_code else new_player ]
     return new_game
+
+  def without_discard(self):
+    new_holder = self.copy()
+    new_holder.discard = []
+    return new_holder
+
+  def take_cards_from(self, location):
+    if location == "discard":
+      return (self.discard, self.without_discard())
+    return super().take_cards_from(self, location)
+
+  def adding_discard_cards(self, cards):
+    new_holder = self.copy()
+    new_holder.discard = self.discard ++ cards
+    return new_holder
+
+  def add_cards_to(self, location, cards):
+    if location == "discard":
+      return self.adding_discard_cards(cards)
+    return super().add_cards_to(self, location, cards)

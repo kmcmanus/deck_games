@@ -27,3 +27,23 @@ class Player(CardHolder):
     new_player = self.copy()
     new_player.hand = new_player.hand + card
     return new_player
+
+  def without_hand(self):
+    new_holder = self.copy()
+    new_holder.hand = []
+    return new_holder
+
+  def take_cards_from(self, location):
+    if location == "hand":
+      return (self.hand, self.without_hand())
+    return super().take_cards_from(self, location)
+
+  def adding_hand_cards(self, cards):
+    new_holder = self.copy()
+    new_holder.hand = self.hand ++ cards
+    return new_holder
+
+  def add_cards_to(self, location, cards):
+    if location == "hand":
+      return self.adding_hand_cards(cards)
+    return super().add_cards_to(self, location, cards)
