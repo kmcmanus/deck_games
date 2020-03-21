@@ -9,7 +9,7 @@ class Player(PublicCardHolder):
         @param deck The privately held Cards no one is aware of
         @param hand The privately held Cards only the player is aware of
     """
-    super().__init__(self, name, token, revealed, deck)
+    super().__init__(name, token, revealed, deck)
     self.hand = hand
     self._valid_locations += "hand"
 

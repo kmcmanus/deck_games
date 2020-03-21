@@ -16,7 +16,7 @@ class MessageState(GameState):
 
 class GameNotStarted(MessageState):
   def __init__(self):
-    super().__init__(self, "This game has not started yet.")
+    super().__init__("This game has not started yet.")
 
 class JoinedGame(GameState):
   def __init__(self, code):

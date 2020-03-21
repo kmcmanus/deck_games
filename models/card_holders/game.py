@@ -11,7 +11,7 @@ class Game(PublicCardHolder):
         @param revealed The publicly revealed Cards held
         @param deck The privately held Cards no one is aware of
     """
-    super().__init__(self, '', code, revealed, deck)
+    super().__init__('', code, revealed, deck)
     self.leader_token = leader_token
     self.started = started
     self.discard = discard
