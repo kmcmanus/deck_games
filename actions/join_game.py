@@ -1,8 +1,10 @@
 from card_holders import Game, Player
 
-from game_state import JoinedGame
+from game_state import JoinedGame, InvalidToken
 
 from helpers import generate_token
+
+from data import games
 
 class JoinGame(object):
   def __init__(self, token, name):
@@ -11,8 +13,9 @@ class JoinGame(object):
 
 
   def perform(self):
-    # TODO: lookup game by token
-    game = None
+    game = games.get_game(self.token)
+    if not game:
+      return (None, InvalidToken(self.token))
     code = generate_token([p.token for p in game.players])
 
     player = Player(self.name, code)

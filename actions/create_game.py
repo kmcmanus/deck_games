@@ -2,7 +2,7 @@ from card_holders import Game, Player
 
 from game_state import CreatedGame, InvalidDeck
 
-from data import DECK_LOOKUP
+from data import DECK_LOOKUP, games
 
 from helpers import generate_token
 
@@ -16,8 +16,7 @@ class CreateGame(object):
     deck = DECK_LOOKUP[self.deck_name]
     if not deck:
       return (None, UnknownDeck(self.deck_name))
-    # todo get all existing tokens
-    token = generate_token(game_tokens)
+    token = generate_token(games.get_game_codes())
     code = generate_token()
 
     player = Player(self.player_name, code)

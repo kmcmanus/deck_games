@@ -1,7 +1,9 @@
 
 from card_holders import Game, Player
 
-from game_state import Playing
+from game_state import Playing, InvalidToken
+
+from data import games
 
 class GiveCard(object):
   def __init__(self, token, code, card_name, recipient_name):
@@ -11,8 +13,9 @@ class GiveCard(object):
     self.recipient_name = recipient_name
 
   def perform(self):
-    # TODO: lookup game by token
-    game = None
+    game = games.get_game(self.token)
+    if not game:
+      return (None, InvalidToken(self.token))
     player = game.get_player(self.code)
     if not player:
       return (None, InvalidToken(self.code))
