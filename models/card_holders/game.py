@@ -1,4 +1,4 @@
-
+from . import PublicCardHolder
 class Game(PublicCardHolder):
   def __init__(self, code, leader_token, players, started, discard=[], revealed=[], deck=[]):
     """ Creates a new player

@@ -1,7 +1,7 @@
 
-from card_holders import Game, Player
+from models.card_holders import Game, Player
 
-from game_state import Playing, InvalidToken
+from game_states import Playing, InvalidToken
 
 from data import games
 

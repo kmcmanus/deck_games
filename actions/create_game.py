@@ -1,12 +1,16 @@
-from card_holders import Game, Player
+from models.card_holders import Game, Player
 
-from game_state import CreatedGame, InvalidDeck
+from game_states import CreatedGame, UnknownDeck
 
 from data import DECK_LOOKUP, games
 
 from helpers import generate_token
 
 class CreateGame(object):
+  @staticmethod
+  def from_data(cls, data):
+    return cls(data["name"], data["deck_name"], data["player_name"])
+
   def __init__(self, name, deck_name, player_name):
     self.name = name
     self.deck_name = deck_name

@@ -1,3 +1,4 @@
+from . import MessageState
 
 class InvalidRequest(MessageState):
   pass

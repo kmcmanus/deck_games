@@ -1,5 +1,5 @@
-
-class Player(CardHolder):
+from . import PublicCardHolder
+class Player(PublicCardHolder):
 
   def __init__(self, name, token, revealed=[], deck=[], hand=[]):
     """ Creates a new player

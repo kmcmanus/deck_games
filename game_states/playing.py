@@ -1,3 +1,4 @@
+from . import GameState
 
 class Playing(GameState):
   def __init__(self, player, other_players, game_cards):

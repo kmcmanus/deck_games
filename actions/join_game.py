@@ -1,6 +1,6 @@
-from card_holders import Game, Player
+from models.card_holders import Game, Player
 
-from game_state import JoinedGame, InvalidToken
+from game_states import JoinedGame, InvalidToken
 
 from helpers import generate_token
 
@@ -10,7 +10,6 @@ class JoinGame(object):
   def __init__(self, token, name):
     self.name = name
     self.token = token
-
 
   def perform(self):
     game = games.get_game(self.token)
