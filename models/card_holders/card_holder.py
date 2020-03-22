@@ -9,7 +9,7 @@ class CardHolder(PublicCardHolder):
         @param revealed The publicly revealed Cards held
         @param deck The privately held Cards
     """
-    super().__init__(self, name, revealed)
+    super().__init__(name, revealed)
     self.token = token
     self.deck = deck
     self._valid_locations += "deck"

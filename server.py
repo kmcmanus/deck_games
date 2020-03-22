@@ -19,9 +19,9 @@ def hello_world():
 def get_decks():
   return json.dumps([d.name for d in decks.ALL_DECKS])
 
-@app.route('/games', methods=['POST'])
-def create_game():
-  return resolve_action(actions.CreateGame.from_data(request.data))
+@app.route('/games/start/<deck>/<player>', methods=['POST'])
+def create_game(deck, player):
+  return resolve_action(actions.CreateGame(deck, player))
 
 @app.route('/games/<token>/join/<name>', methods=['POST'])
 def join_game(token, name):

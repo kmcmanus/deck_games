@@ -7,7 +7,7 @@ def add_random_letter_to(current, nxt):
   return current + random.choice(string.ascii_lowercase)
 
 def random_token():
-  return reduce(add_random_letter_to, xrange(4), '')
+  return reduce(add_random_letter_to, range(4), '')
 
 def generate_token(context=[]):
   token = random_token()

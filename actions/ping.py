@@ -14,7 +14,7 @@ class Ping(object):
     if not game:
       return (None, InvalidToken(self.token))
     if not game.started:
-      return (None, GameNotStarted(game.players, game.leader())
+      return (None, GameNotStarted(game.players, game.leader()))
     player = game.get_player(self.code)
     state = Playing(player, game.players, game)
     return (None, state)

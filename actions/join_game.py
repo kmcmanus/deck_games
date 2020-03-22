@@ -18,6 +18,6 @@ class JoinGame(object):
     code = generate_token([p.token for p in game.players])
 
     player = Player(self.name, code)
-    state = JoinedGame(player.code)
+    state = JoinedGame(player.token)
 
     return (game.including_new_player(player), state)

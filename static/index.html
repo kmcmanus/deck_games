@@ -229,6 +229,13 @@
       $(this).closest('.bean').hide();
       $(destination).show();
     });
+    $('#start-game button').click(function() {
+      var playerName = $('#start-game .name').val();
+      var deckName = $('#start-game .deck').val();
+      $.post(`/games/start/${deckName}/${playerName}`, function(result) {
+        console.log(result);
+      });
+    });
   });
   </script>
 </html>

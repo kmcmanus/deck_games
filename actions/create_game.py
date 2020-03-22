@@ -7,10 +7,6 @@ from data import DECK_LOOKUP, games
 from helpers import generate_token
 
 class CreateGame(object):
-  @staticmethod
-  def from_data(cls, data):
-    return cls(data["deck_name"], data["player_name"])
-
   def __init__(self, deck_name, player_name):
     self.deck_name = deck_name
     self.player_name = player_name
@@ -23,7 +19,7 @@ class CreateGame(object):
     code = generate_token()
 
     player = Player(self.player_name, code)
-    game = Game(token, player.code, [ player ], false, [], [], deck)
-    state = CreatedGame(token, player.code)
+    game = Game(token, player.token, [ player ], False, [], [], deck)
+    state = CreatedGame(token, player.token)
 
     return (game, state)
