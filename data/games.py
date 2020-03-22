@@ -1,8 +1,11 @@
+import threading
 games = {}
 
+lock = threading.Lock()
+
 def save_game(game):
-  #TODO lock on game code
-  games[game.code] = game
+  with lock:
+    games[game.code] = game
 
 def get_game(code):
   return games.get(code)

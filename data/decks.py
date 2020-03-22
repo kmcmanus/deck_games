@@ -1,7 +1,5 @@
 from models import Deck, Card
 
-# TODO add cards
-
 grey = '#9E9E9E'
 
 green = '#4CAF50'
