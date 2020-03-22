@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <title>Deck Games</title>
+    <style>
+      body {
+        font-size: 24pt;
+        font-family: 'Arial', sans-serif;
+        background-color: #1B5E20;
+      }
+
+      .large {
+        font-size: 48pt;
+      }
+      .other span {
+        display: inline-block;
+      }
+      .other .name {
+        width: 10%;
+      }
+
+      #others {
+        border: 2px solid #000;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        background-color: #388E3C;
+      }
+
+      #playspace {
+        border-left: 2px solid #000;
+        border-right: 2px solid #000;
+        background-color: #388E3C;
+      }
+
+      #player {
+        border: 2px solid #000;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        background-color: #388E3C;
+      }
+
+      .other {
+        padding: 5px;
+        border: 0px solid #1B5E20;
+        border-bottom-width: 1px;
+      }
+
+      .other .deck {
+        width: 10%;
+      }
+      .other .hand {
+        width: 10%;
+      }
+
+      .other .wallet {
+        float: right;
+      }
+
+      .deck::before {
+        content: '\1F0A0';
+      }
+      .hand::before {
+        content: '\270A';
+      }
+      .discard::before {
+        content: '\1F0DF';
+      }
+
+      .card {
+        border: solid black;
+        background-color: white;
+        border-top-left-radius: 20px;
+        padding-left: 5px;
+        padding-right: 25px;
+        margin-left: -30;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='others'>
+      <div class='other'>
+        <span class='name'>Matt</span>
+        <span class='deck'>4</span>
+        <span class='hand'>2</span>
+        <span class='wallet'>
+          <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
+          <span class='card' style='color: #4CAF50;'>9&#9827;</span>
+          <span class='card' style='color: #F44336;'>10&#9829;</span>
+          <span class='card' style='color: #2196F3;'>3&#9830;</span>
+        </span>
+      </div>
+      <div class='other'>
+        <span class='name'>Gracie</span>
+        <span class='deck'>4</span>
+        <span class='hand'>2</span>
+        <span class='wallet'>
+          <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
+          <span class='card' style='color: #4CAF50;'>9&#9827;</span>
+          <span class='card' style='color: #F44336;'>10&#9829;</span>
+          <span class='card' style='color: #2196F3;'>3&#9830;</span>
+        </span>
+      </div>
+      <div class='other'>
+        <span class='name'>Kade</span>
+        <span class='deck'>4</span>
+        <span class='hand'>2</span>
+        <span class='wallet'>
+          <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
+          <span class='card' style='color: #4CAF50;'>9&#9827;</span>
+          <span class='card' style='color: #F44336;'>10&#9829;</span>
+          <span class='card' style='color: #2196F3;'>3&#9830;</span>
+        </span>
+      </div>
+    </div>
+    <div id='playspace'>
+      <div class='deck large'>4</div>
+      <div class='discard large'>2</div>
+      <div class='cards large'>
+        <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
+        <span class='card' style='color: #4CAF50;'>9&#9827;</span>
+        <span class='card' style='color: #F44336;'>10&#9829;</span>
+        <span class='card' style='color: #2196F3;'>3&#9830;</span>
+      </div>
+    </div>
+    <div id='player'>
+      <div class='name'>Kevin</div>
+      <div class='deck large'>4</div>
+      <div class='cards large'>
+        <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
+        <span class='card' style='color: #4CAF50;'>9&#9827;</span>
+        <span class='card' style='color: #F44336;'>10&#9829;</span>
+        <span class='card' style='color: #2196F3;'>3&#9830;</span>
+      </div>
+      <div class='cards hand large'>
+        <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
+        <span class='card' style='color: #4CAF50;'>9&#9827;</span>
+        <span class='card' style='color: #F44336;'>10&#9829;</span>
+        <span class='card' style='color: #2196F3;'>3&#9830;</span>
+      </div>
+    </div>
+  </body>
+</html>
