@@ -17,6 +17,12 @@ class Game(PublicCardHolder):
     self.discard = discard
     self._valid_locations += "discard"
 
+  def leader(self):
+    for p in players:
+      if p.code == self.leader_token:
+        return p
+    return None
+
   def public_unrended_data(self):
     return super().public_unrendered_data() + {
       "discard": [ d.unrendered_data() for d in self.discard ]

@@ -1,6 +1,6 @@
 from models.card_holders import Game, Player
 
-from game_states import Playing, InvalidToken
+from game_states import Playing, InvalidToken, GameNotStarted
 
 from data import games
 
@@ -13,6 +13,8 @@ class Ping(object):
     game = games.get_game(self.token)
     if not game:
       return (None, InvalidToken(self.token))
+    if not game.started:
+      return (None, GameNotStarted(game.players, game.leader())
     player = game.get_player(self.code)
     state = Playing(player, game.players, game)
-    return (game, state)
+    return (None, state)

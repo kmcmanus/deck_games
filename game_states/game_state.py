@@ -14,9 +14,17 @@ class MessageState(GameState):
   def unrendered_data(self):
     return { "message": self.message }
 
-class GameNotStarted(MessageState):
-  def __init__(self):
-    super().__init__("This game has not started yet.")
+class GameNotStarted(GameState):
+  def __init__(self, players, leader):
+    self.players = players
+    self.leader = leader
+
+  def unrendered_data(self):
+    return {
+        "state": "waiting",
+        "players": [p.name for p in players],
+        "leader": leader.name
+      }
 
 class JoinedGame(GameState):
   def __init__(self, code):

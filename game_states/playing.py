@@ -13,6 +13,7 @@ class Playing(GameState):
 
   def unrendered_data(self):
     return {
+      "state": "playing",
       "player": self.player.unrendered_data(),
       "other_players": { op.name: op.public_unrendered_data() },
       "game_cards": game_cards.public_unrendered_data()
