@@ -25,17 +25,36 @@
         background-color: #388E3C;
       }
 
-      #playspace {
+      #playspace, #deckspace {
         border-left: 2px solid #000;
         border-right: 2px solid #000;
         background-color: #388E3C;
       }
 
-      #player {
-        border: 2px solid #000;
+      #playspace {
+        padding-left: 35px;
+      }
+
+      #deckspace {
+        border-bottom: 2px solid #000;
+      }
+
+      .player {
+        background-color: #fff9c4;
+        border-left: 2px solid #000;
+        border-right: 2px solid #000;
+        min-height: 78px;
+        padding-right: 15px;
+      }
+
+      .player.end {
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
-        background-color: #388E3C;
+        border-bottom: 2px solid #000;
+      }
+
+      .player .name {
+        padding-left: 5px;
       }
 
       .other {
@@ -51,7 +70,7 @@
         width: 10%;
       }
 
-      .other .wallet {
+      .wallet {
         float: right;
       }
 
@@ -60,6 +79,7 @@
       }
       .hand::before {
         content: '\270A';
+        margin-right: 10px;
       }
       .discard::before {
         content: '\1F0DF';
@@ -73,6 +93,11 @@
         padding-right: 25px;
         margin-left: -30;
       }
+
+      .card:last-child {
+        padding-right: 5px;
+      }
+
     </style>
   </head>
   <body>
@@ -112,31 +137,35 @@
         </span>
       </div>
     </div>
-    <div id='playspace'>
-      <div class='deck large'>4</div>
-      <div class='discard large'>2</div>
-      <div class='cards large'>
-        <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
-        <span class='card' style='color: #4CAF50;'>9&#9827;</span>
-        <span class='card' style='color: #F44336;'>10&#9829;</span>
-        <span class='card' style='color: #2196F3;'>3&#9830;</span>
-      </div>
+    <div id='playspace' class='large'>
+      <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
+      <span class='card' style='color: #4CAF50;'>9&#9827;</span>
+      <span class='card' style='color: #F44336;'>10&#9829;</span>
+      <span class='card' style='color: #2196F3;'>3&#9830;</span>
     </div>
-    <div id='player'>
+    <div id='deckspace'>
+      <span class='deck large'>4</span>
+      <span class='discard large'>2</span>
+    </div>
+    <div class='player'>
       <div class='name'>Kevin</div>
-      <div class='deck large'>4</div>
-      <div class='cards large'>
+      <span class='deck large'>4</span>
+    </div>
+    <div class='player'>
+      <span class='wallet large'>
         <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
         <span class='card' style='color: #4CAF50;'>9&#9827;</span>
         <span class='card' style='color: #F44336;'>10&#9829;</span>
         <span class='card' style='color: #2196F3;'>3&#9830;</span>
-      </div>
-      <div class='cards hand large'>
+      </span>
+    </div>
+    <div class='player end'>
+      <span class='wallet hand large'>
         <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
         <span class='card' style='color: #4CAF50;'>9&#9827;</span>
         <span class='card' style='color: #F44336;'>10&#9829;</span>
         <span class='card' style='color: #2196F3;'>3&#9830;</span>
-      </div>
+      </span>
     </div>
   </body>
 </html>
