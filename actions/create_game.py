@@ -9,10 +9,9 @@ from helpers import generate_token
 class CreateGame(object):
   @staticmethod
   def from_data(cls, data):
-    return cls(data["name"], data["deck_name"], data["player_name"])
+    return cls(data["deck_name"], data["player_name"])
 
-  def __init__(self, name, deck_name, player_name):
-    self.name = name
+  def __init__(self, deck_name, player_name):
     self.deck_name = deck_name
     self.player_name = player_name
 

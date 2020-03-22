@@ -1,11 +1,20 @@
 <html>
   <head>
     <title>Deck Games</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
       body {
         font-size: 24pt;
         font-family: 'Arial', sans-serif;
         background-color: #1B5E20;
+      }
+
+      .bean {
+        border: 2px solid #000;
+        border-radius: 15px;
+        background-color: #388E3C;
+        margin-right: 10px;
+        text-align: center;
       }
 
       .large {
@@ -101,7 +110,49 @@
     </style>
   </head>
   <body>
-    <div id='others'>
+    <div id='start' class='bean'>
+      <h1>Deck Games</h1>
+      <p>
+        <a href='#' class='change-state' data-dest='#join-game'>Join Game</a>
+      </p>
+      <p>
+        or
+      </p>
+      <p>
+        <a href='#' class='change-state' data-dest='#start-game'>Start a New Game</a>
+      </p>
+    </div>
+    <div id='join-game' class='bean' style='display: none'>
+      <h2>Join a Game</h2>
+      <p>
+          <input type='text' placeholder='Your Name' class='name'></input>
+      </p>
+      <p>
+          <input type='text' placeholder='Game Code' class='game-code'></input>
+      </p>
+      <p>
+        <button>Join Game</button>
+      </p>
+      <p>
+        Actually, I want to <a href='#' class='change-state' data-dest='#start-game'>Start a New Game</a>
+      </p>
+    </div>
+    <div id='start-game' class='bean' style='display: none'>
+      <h2>Start a Game</h2>
+      <p>
+          <input type='text' placeholder='Your Name' class='name'></input>
+      </p>
+      <p>
+        <select class='deck'></select>
+      </p>
+      <p>
+        <button>Start Game</button>
+      </p>
+      <p>
+        Actually, I want to <a href='#' class='change-state' data-dest='#join-game'>Join a Game</a>
+      </p>
+    </div>
+    <div id='others' style='display: none'>
       <div class='other'>
         <span class='name'>Matt</span>
         <span class='deck'>4</span>
@@ -137,21 +188,21 @@
         </span>
       </div>
     </div>
-    <div id='playspace' class='large'>
+    <div id='playspace' class='large' style='display: none'>
       <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
       <span class='card' style='color: #4CAF50;'>9&#9827;</span>
       <span class='card' style='color: #F44336;'>10&#9829;</span>
       <span class='card' style='color: #2196F3;'>3&#9830;</span>
     </div>
-    <div id='deckspace'>
+    <div id='deckspace' style='display: none'>
       <span class='deck large'>4</span>
       <span class='discard large'>2</span>
     </div>
-    <div class='player'>
+    <div class='player' style='display: none'>
       <div class='name'>Kevin</div>
       <span class='deck large'>4</span>
     </div>
-    <div class='player'>
+    <div class='player' style='display: none'>
       <span class='wallet large'>
         <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
         <span class='card' style='color: #4CAF50;'>9&#9827;</span>
@@ -159,7 +210,7 @@
         <span class='card' style='color: #2196F3;'>3&#9830;</span>
       </span>
     </div>
-    <div class='player end'>
+    <div class='player end' style='display: none'>
       <span class='wallet hand large'>
         <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
         <span class='card' style='color: #4CAF50;'>9&#9827;</span>
@@ -168,4 +219,16 @@
       </span>
     </div>
   </body>
+  <script>
+  $(document).ready(function(){
+    $.get('/decks', function(data) {
+      JSON.parse(data).forEach(item => $('.deck').append(`<option value="${item}">${item}</option>`));
+    });
+    $('a.change-state').click(function() {
+      var destination = $(this).data('dest');
+      $(this).closest('.bean').hide();
+      $(destination).show();
+    });
+  });
+  </script>
 </html>
