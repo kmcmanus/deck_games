@@ -1,6 +1,7 @@
 from flask import Flask, request
-from data import games
+from data import games, decks
 import actions
+import json
 
 app = Flask(__name__)
 
@@ -13,6 +14,10 @@ def resolve_action(action):
 @app.route('/')
 def hello_world():
   return 'Hello, World!'
+
+@app.route('/decks', methods=['GET'])
+def get_decks():
+  return json.dumps([d.name for d in decks.ALL_DECKS])
 
 @app.route('/games', methods=['POST'])
 def create_game():
