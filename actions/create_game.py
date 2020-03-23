@@ -19,7 +19,7 @@ class CreateGame(object):
     code = generate_token()
 
     player = Player(self.player_name, code)
-    game = Game(token, player.token, [ player ], False, [], [], deck)
+    game = Game(token, player.token, [ player ], False, [], [], deck.cards)
     state = CreatedGame(token, player.token)
 
     return (game, state)

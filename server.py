@@ -22,7 +22,7 @@ def hello_world():
 def get_decks():
   return json.dumps([d.name for d in decks.ALL_DECKS])
 
-@app.route('/games/start/<deck>/<player>', methods=['POST'])
+@app.route('/games/create/<deck>/<player>', methods=['POST'])
 def create_game(deck, player):
   return resolve_action(actions.CreateGame(deck, player))
 

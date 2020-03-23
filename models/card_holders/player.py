@@ -14,7 +14,8 @@ class Player(CardHolder):
     self._valid_locations += "hand"
 
   def unrendered_data(self):
-    return self.public_unrendered_data() + {
-        "code": self.code,
+    return { **super().public_unrendered_data(), **{
+        "code": self.token,
         "hand": [ h.unrendered_data() for h in self.hand ]
+      }
       }

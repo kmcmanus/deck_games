@@ -240,8 +240,32 @@
   </body>
   <script>
   $(document).ready(function(){
-    var playerCode = null;
-    var gameToken = null;
+    function parseRawState(rawState, lastState) {
+      var result = JSON.parse(rawState);
+      if (result.state == 'waiting') {
+        $('.player-list').html(result.players.map(function(p) {
+          var name = p;
+          if (p == result.leader) {
+            name = p + "&nbsp;&#x265a;"
+          }
+          return `<li>${name}</li>`
+        }).join(''));
+      }
+      if (result.state == 'playing' && lastState == 'waiting') {
+        $('.bean').hide();
+        $('#others').show();
+        $('#deckspace').show();
+        $('#playspace').show();
+        $('.player').show();
+      }
+      return result;
+    };
+    function ping(playerCode, gameToken, lastState) {
+      $.get(`/games/${gameToken}/ping/${playerCode}`, function(rawResult) {
+        var result = parseRawState(rawResult, lastState);
+        setTimeout(function() { ping(playerCode, gameToken, result.state); }, 1000);
+      });
+    };
     $.get('/decks', function(data) {
       JSON.parse(data).forEach(item => $('.deck').append(`<option value="${item}">${item}</option>`));
     });
@@ -260,13 +284,13 @@
         result.players.forEach(p => $('#player-lobby .player-list').append(`<li>${p}</li>`));
         $('#join-game').hide();
         $('#player-lobby').show();
-        // TODO: Start ping
+        setTimeout(function() { ping(playerCode, token, 'loading'); }, 1000);
       });
     });
     $('#start-game button').click(function() {
       var playerName = $('#start-game .name').val();
       var deckName = $('#start-game .deck').val();
-      $.post(`/games/start/${deckName}/${playerName}`, function(rawResult) {
+      $.post(`/games/create/${deckName}/${playerName}`, function(rawResult) {
         var result = JSON.parse(rawResult);
         // TODO: check for invalid deck
         playerCode = result.code;
@@ -274,8 +298,12 @@
         $('#start-game').hide();
         $('#leader-lobby').show();
         $('#leader-lobby .token-holder').text(gameToken);
-        // TODO: Start ping
-        // TODO: hookup start game button
+        setTimeout(function() { ping(playerCode, gameToken, 'loading'); }, 1000);
+        $('#leader-lobby button').click(function() {
+          $.post(`/games/${gameToken}/start/${playerCode}`, function(rawResult) {
+            parseRawState(rawResult, 'waiting');
+          });
+        });
       });
     });
   });

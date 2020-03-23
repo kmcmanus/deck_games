@@ -16,9 +16,7 @@ class CardHolder(PublicCardHolder):
 
   def deck_size(self):
     """ Returns the size of the deck """
-    return len(deck)
+    return len(self.deck)
 
   def public_unrendered_data(self):
-    return super().public_unrendered_data() + {
-      "deck_size": self.deck_size
-    }
+    return { **super().public_unrendered_data(), **{ "deck_size": self.deck_size() } }

@@ -23,7 +23,7 @@ class GameNotStarted(GameState):
     return {
         "state": "waiting",
         "players": [p.name for p in self.players],
-        "leader": leader.name
+        "leader": self.leader.name
       }
 
 class JoinedGame(GameState):

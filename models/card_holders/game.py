@@ -20,20 +20,25 @@ class Game(CardHolder):
     self._valid_locations += "discard"
 
   def leader(self):
-    for p in players:
-      if p.code == self.leader_token:
+    for p in self.players:
+      if p.token == self.leader_token:
         return p
     return None
 
   def public_unrended_data(self):
-    return super().public_unrendered_data() + {
-      "discard": [ d.unrendered_data() for d in self.discard ]
-    }
+    return { **super().public_unrendered_data(), **{ "discard": [ d.unrendered_data() for d in self.discard ] } }
+
 
   def start(self):
     new_game = copy(self)
     new_game.started = True
     return new_game
+
+  def get_player(self, code):
+    for player in self.players:
+      if player.token == code:
+        return player
+    return None
 
   def including_new_player(self, new_player):
     new_game = copy(self)
