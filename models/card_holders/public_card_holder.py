@@ -1,3 +1,4 @@
+from copy import copy
 class PublicCardHolder(object):
 
   def __init__(self, name, revealed=[]):
@@ -17,14 +18,14 @@ class PublicCardHolder(object):
 
   def add_cards_to(self, location, cards):
     if location in self._valid_locations:
-      clone = self.copy()
+      clone = copy(self)
       setattr(clone, location, getattr(self, location) ++ cards)
       return clone
     return self
 
   def take_cards_from(self, location):
     if location in self._valid_locations:
-      clone = self.copy()
+      clone = copy(self)
       setattr(clone, location, [])
       return (clone, getattr(self, location))
     return (self, [])
@@ -33,7 +34,7 @@ class PublicCardHolder(object):
     if location in self._valid_locations:
       card = self.find_card_in(getattr(self, location), card_name)
       if card:
-        clone = self.copy()
+        clone = copy(self)
         getattr(clone, location).remove(card)
         return (clone, [card])
     return (self, [])

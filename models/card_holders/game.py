@@ -1,3 +1,4 @@
+from copy import copy
 from . import CardHolder
 class Game(CardHolder):
   def __init__(self, code, leader_token, players, started, discard=[], revealed=[], deck=[]):
@@ -13,6 +14,7 @@ class Game(CardHolder):
     """
     super().__init__('', code, revealed, deck)
     self.leader_token = leader_token
+    self.players = players
     self.started = started
     self.discard = discard
     self._valid_locations += "discard"
@@ -29,16 +31,16 @@ class Game(CardHolder):
     }
 
   def start(self):
-    new_game = self.copy()
+    new_game = copy(self)
     new_game.started = True
     return new_game
 
   def including_new_player(self, new_player):
-    new_game = self.copy()
-    new_game.players = new_game.players + new_player
+    new_game = copy(self)
+    new_game.players = new_game.players + [new_player]
     return new_game
 
   def including_updated_player(self, player_code, new_player):
-    new_game = self.copy()
+    new_game = copy(self)
     new_game.players = [ p if p.token != player_code else new_player ]
     return new_game

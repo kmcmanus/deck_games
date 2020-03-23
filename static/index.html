@@ -218,9 +218,30 @@
         <span class='card' style='color: #2196F3;'>3&#9830;</span>
       </span>
     </div>
+    <div id='leader-lobby' class='bean' style='display: none'>
+      <h1>Game Lobby</h1>
+      <p>
+        You have created a game. Please share this token:
+      </p>
+      <h2 class='token-holder'></h2>
+      <p>Current Players:</p>
+      <ul class='player-list'></ul>
+      <button>Start Game</button>
+    </div>
+    <div id='player-lobby' class='bean' style='display: none'>
+      <h1>Game Lobby</h1>
+      <p>
+        You have joined this game.
+      </p>
+      <p>Current Players:</p>
+      <ul class='player-list'></ul>
+      <p>Please wait for the leader to start the game.</p>
+    </div>
   </body>
   <script>
   $(document).ready(function(){
+    var playerCode = null;
+    var gameToken = null;
     $.get('/decks', function(data) {
       JSON.parse(data).forEach(item => $('.deck').append(`<option value="${item}">${item}</option>`));
     });
@@ -229,11 +250,32 @@
       $(this).closest('.bean').hide();
       $(destination).show();
     });
+    $('#join-game button').click(function() {
+      var playerName = $('#join-game .name').val();
+      var token = $('#join-game .game-code').val();
+      $.post(`/games/${token}/join/${playerName}`, function(rawResult) {
+        var result = JSON.parse(rawResult);
+        // TODO: check for invalid token
+        playerCode = result.code;
+        result.players.forEach(p => $('#player-lobby .player-list').append(`<li>${p}</li>`));
+        $('#join-game').hide();
+        $('#player-lobby').show();
+        // TODO: Start ping
+      });
+    });
     $('#start-game button').click(function() {
       var playerName = $('#start-game .name').val();
       var deckName = $('#start-game .deck').val();
-      $.post(`/games/start/${deckName}/${playerName}`, function(result) {
-        console.log(result);
+      $.post(`/games/start/${deckName}/${playerName}`, function(rawResult) {
+        var result = JSON.parse(rawResult);
+        // TODO: check for invalid deck
+        playerCode = result.code;
+        gameToken = result.token;
+        $('#start-game').hide();
+        $('#leader-lobby').show();
+        $('#leader-lobby .token-holder').text(gameToken);
+        // TODO: Start ping
+        // TODO: hookup start game button
       });
     });
   });

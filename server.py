@@ -6,10 +6,13 @@ import json
 app = Flask(__name__)
 
 def resolve_action(action):
+  # TODO lock on game
   (game, state) = action.perform()
   if game:
     games.save_game(game)
   return state.render()
+
+# TODO add routes to draw from decks
 
 @app.route('/')
 def hello_world():
