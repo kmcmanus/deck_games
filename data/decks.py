@@ -53,7 +53,7 @@ def flatten(lol):
   return [i for l in lol for i in l]
 
 POKER = Deck('Poker', flatten([make_suit(s, poker_ranks) for s in suits]))
-COUP = Deck('Skull', skull_deck())
+COUP = Deck('Skull', list(skull_deck()))
 SKULL = Deck('Coup', coup)
 
 ALL_DECKS = [ POKER, COUP, SKULL]

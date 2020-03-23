@@ -143,7 +143,7 @@
           <input type='text' placeholder='Your Name' class='name'></input>
       </p>
       <p>
-        <select class='deck'></select>
+        <select class='deck-list'></select>
       </p>
       <p>
         <button>Start Game</button>
@@ -267,7 +267,7 @@
       });
     };
     $.get('/decks', function(data) {
-      JSON.parse(data).forEach(item => $('.deck').append(`<option value="${item}">${item}</option>`));
+      JSON.parse(data).forEach(item => $('.deck-list').append(`<option value="${item}">${item}</option>`));
     });
     $('a.change-state').click(function() {
       var destination = $(this).data('dest');
@@ -289,7 +289,7 @@
     });
     $('#start-game button').click(function() {
       var playerName = $('#start-game .name').val();
-      var deckName = $('#start-game .deck').val();
+      var deckName = $('#start-game .deck-list').val();
       $.post(`/games/create/${deckName}/${playerName}`, function(rawResult) {
         var result = JSON.parse(rawResult);
         // TODO: check for invalid deck
