@@ -35,5 +35,5 @@ class MoveCard(object):
         .add_cards_to(self.destination, cards)\
         .including_updated_player(self.code, updated_player)
 
-    state = Playing(updated_player, game.players, updated_game)
+    state = Playing(updated_player, updated_game.players, updated_game)
     return (updated_game, state)

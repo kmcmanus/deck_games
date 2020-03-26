@@ -33,5 +33,5 @@ class GiveCard(object):
         .including_updated_player(cardless_player.code, cardless_player)\
         .including_updated_player(carded_player.code, carded_player)
 
-    state = Playing(player, updated_game.players, updated_game)
+    state = Playing(cardless_player, updated_game.players, updated_game)
     return (updated_game, state)
