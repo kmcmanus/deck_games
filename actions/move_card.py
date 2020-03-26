@@ -1,6 +1,6 @@
 from models.card_holders import Game, Player
 
-from game_states import Playing, InvalidToken
+from game_states import Playing, InvalidToken, UnknownLocation
 
 from data import games
 
@@ -20,7 +20,9 @@ class MoveCard(object):
     if not player:
       return (None, InvalidToken(self.code))
 
-    # TODO don't let them draw from a deck
+    # don't let them draw from a deck
+    if self.source == "deck":
+      return (None, UnknownLocation("deck"))
 
     (cardless_game, game_cards) = game.take_card_from(self.source, self.card_name)
     (cardless_player, player_cards) = player.take_card_from(self.source, self.card_name)
