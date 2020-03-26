@@ -25,7 +25,7 @@ class Game(CardHolder):
         return p
     return None
 
-  def public_unrended_data(self):
+  def public_unrendered_data(self):
     return { **super().public_unrendered_data(), **{ "discard": [ d.unrendered_data() for d in self.discard ] } }
 
 

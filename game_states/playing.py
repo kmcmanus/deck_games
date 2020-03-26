@@ -15,6 +15,6 @@ class Playing(GameState):
     return {
       "state": "playing",
       "player": self.player.unrendered_data(),
-      "other_players": { op.name: op.public_unrendered_data() for op in self.other_players },
+      "other_players": [ op.public_unrendered_data() for op in self.other_players ],
       "game_cards": self.game_cards.public_unrendered_data()
     }

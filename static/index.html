@@ -153,69 +153,23 @@
       </p>
     </div>
     <div id='others' style='display: none'>
-      <div class='other'>
-        <span class='name'>Matt</span>
-        <span class='deck'>4</span>
-        <span class='hand'>2</span>
-        <span class='wallet'>
-          <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
-          <span class='card' style='color: #4CAF50;'>9&#9827;</span>
-          <span class='card' style='color: #F44336;'>10&#9829;</span>
-          <span class='card' style='color: #2196F3;'>3&#9830;</span>
-        </span>
-      </div>
-      <div class='other'>
-        <span class='name'>Gracie</span>
-        <span class='deck'>4</span>
-        <span class='hand'>2</span>
-        <span class='wallet'>
-          <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
-          <span class='card' style='color: #4CAF50;'>9&#9827;</span>
-          <span class='card' style='color: #F44336;'>10&#9829;</span>
-          <span class='card' style='color: #2196F3;'>3&#9830;</span>
-        </span>
-      </div>
-      <div class='other'>
-        <span class='name'>Kade</span>
-        <span class='deck'>4</span>
-        <span class='hand'>2</span>
-        <span class='wallet'>
-          <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
-          <span class='card' style='color: #4CAF50;'>9&#9827;</span>
-          <span class='card' style='color: #F44336;'>10&#9829;</span>
-          <span class='card' style='color: #2196F3;'>3&#9830;</span>
-          <span class='card' style='color: #2196F3;'>&#9760;</span>
-        </span>
-      </div>
     </div>
     <div id='playspace' class='large' style='display: none'>
-      <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
-      <span class='card' style='color: #4CAF50;'>9&#9827;</span>
-      <span class='card' style='color: #F44336;'>10&#9829;</span>
-      <span class='card' style='color: #2196F3;'>3&#9830;</span>
     </div>
     <div id='deckspace' style='display: none'>
-      <span class='deck large'>4</span>
-      <span class='discard large'>2</span>
+      <span class='deck large'></span>
+      <span class='discard large'></span>
     </div>
     <div class='player' style='display: none'>
-      <div class='name'>Kevin</div>
-      <span class='deck large'>4</span>
+      <div class='name'></div>
+      <span class='deck large'></span>
     </div>
     <div class='player' style='display: none'>
-      <span class='wallet large'>
-        <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
-        <span class='card' style='color: #4CAF50;'>9&#9827;</span>
-        <span class='card' style='color: #F44336;'>10&#9829;</span>
-        <span class='card' style='color: #2196F3;'>3&#9830;</span>
+      <span class='revealed wallet large'>
       </span>
     </div>
     <div class='player end' style='display: none'>
       <span class='wallet hand large'>
-        <span class='card' style='color: #9E9E9E;'>K&#9824;</span>
-        <span class='card' style='color: #4CAF50;'>9&#9827;</span>
-        <span class='card' style='color: #F44336;'>10&#9829;</span>
-        <span class='card' style='color: #2196F3;'>3&#9830;</span>
       </span>
     </div>
     <div id='leader-lobby' class='bean' style='display: none'>
@@ -239,7 +193,20 @@
     </div>
   </body>
   <script>
-  $(document).ready(function(){
+  $(document).ready(function() {
+    function card_html(card) {
+      return `<span class='card' style='color: ${card.color};' data-text="${card.text}">${card.name}</span>`
+    }
+    function other_player_html(player) {
+      return `<div class='other'>
+        <span class='name'>${player.name}</span>
+        <span class='deck'>${player.deck_size}</span>
+        <span class='hand'>${player.hand_size}</span>
+        <span class='wallet'>
+          ${ player.revealed.map(card_html) }
+        </span>
+      </div>`;
+    }
     function parseRawState(rawState, lastState) {
       var result = JSON.parse(rawState);
       if (result.state == 'waiting') {
@@ -251,12 +218,30 @@
           return `<li>${name}</li>`
         }).join(''));
       }
-      if (result.state == 'playing' && lastState == 'waiting') {
+      if (result.state == 'playing' && lastState != 'playing') {
         $('.bean').hide();
         $('#others').show();
         $('#deckspace').show();
         $('#playspace').show();
         $('.player').show();
+      }
+      if (result.state == 'playing') {
+        var player = result['player'];
+        var other_players = result['other_players'];
+        var game_cards = result['game_cards'];
+
+        $('#others').html(other_players.map(other_player_html).join(''));
+
+        console.log(game_cards);
+        $('#deckspace .deck').html(game_cards.deck_size);
+        $('#deckspace .discard').html(game_cards.discard.length);
+        $('#playspace').html(game_cards.revealed.map(card_html).join(''));
+
+        console.log(player);
+        $('.player .name').html(player.name);
+        $('.player .deck').html(player.deck_size);
+        $('.player .revealed').html(player.revealed.map(card_html).join(''));
+        $('.player .hand').html(player.hand.map(card_html).join(''));
       }
       return result;
     };

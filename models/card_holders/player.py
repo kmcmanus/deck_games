@@ -18,4 +18,10 @@ class Player(CardHolder):
         "code": self.token,
         "hand": [ h.unrendered_data() for h in self.hand ]
       }
+    }
+
+  def public_unrendered_data(self):
+    return { **super().public_unrendered_data(), **{
+        "hand_size": len(self.hand)
       }
+    }
