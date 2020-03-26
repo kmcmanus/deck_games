@@ -2,15 +2,20 @@ from flask import Flask, request
 from data import games, decks
 import actions
 import json
+import threading
+import collections
 
 app = Flask(__name__)
 
+locks = collections.defaultdict(threading.Lock)
+
 def resolve_action(action):
-  # TODO lock on game
-  (game, state) = action.perform()
-  if game:
-    games.save_game(game)
-  return state.render()
+  token = getattr(action, 'token', 'new_game')
+  with locks[token]:
+    (game, state) = action.perform()
+    if game:
+      games.save_game(game)
+    return state.render()
 
 # TODO add routes to draw from decks
 
