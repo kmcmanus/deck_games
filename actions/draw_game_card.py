@@ -18,13 +18,13 @@ class DrawGameCard(object):
     if not player:
       return (None, InvalidToken(self.code))
 
-    (cardless_game, cards) = game.take_card_from("deck", self.card_name)
+    (cardless_game, cards) = game.draw_top_card()
+
+    updated_player = player.add_cards_to(self.destination, cards)
 
     updated_game = cardless_game\
         .add_cards_to(self.destination, cards)\
-        .including_updated_player(self.code,
-            player.add_cards_to(self.destination, cards)
-            )
+        .including_updated_player(self.code, updated_player)
 
-    state = Playing(player, game.players, game)
-    return (game, state)
+    state = Playing(updated_player, game.players, updated_game)
+    return (updated_game, state)

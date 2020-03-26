@@ -29,11 +29,11 @@ class MoveCard(object):
 
     cards = game_cards ++ player_cards
 
-    updated_game = game\
-        .add_cards_to(self.destination, cards)\
-        .including_updated_player(self.code,
-            player.add_cards_to(self.destination, cards)
-            )
+    updated_player = cardless_player.add_cards_to(self.destination, cards)
 
-    state = Playing(player, game.players, game)
-    return (game, state)
+    updated_game = cardless_game\
+        .add_cards_to(self.destination, cards)\
+        .including_updated_player(self.code, updated_player)
+
+    state = Playing(updated_player, game.players, updated_game)
+    return (updated_game, state)

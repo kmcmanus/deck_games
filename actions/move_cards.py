@@ -19,16 +19,20 @@ class MoveCards(object):
     if not player:
       return (None, InvalidToken(self.code))
 
+    # don't let them draw from a deck
+    if self.source == "deck":
+      return (None, UnknownLocation("deck"))
+
     (cardless_game, game_card) = game.take_cards_from(self.source)
     (cardless_player, player_card) = player.take_cards_from(self.source)
 
     cards = game_card ++ player_card
 
-    updated_game = game\
-        .add_cards_to(self.destination, cards)\
-        .including_updated_player(self.code,
-            player.add_cards_to(self.destination, cards)
-            )
+    updated_player = cardless_player.add_cards_to(self.destination, cards)
 
-    state = Playing(player, game.players, game)
-    return (game, state)
+    updated_game = cardless_game\
+        .add_cards_to(self.destination, cards)\
+        .including_updated_player(self.code, updated_player)
+
+    state = Playing(updated_player, game.players, updated_game)
+    return (updated_game, state)

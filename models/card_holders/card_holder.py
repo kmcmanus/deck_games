@@ -1,4 +1,5 @@
 from . import PublicCardHolder
+from copy import copy
 
 class CardHolder(PublicCardHolder):
 
@@ -20,3 +21,12 @@ class CardHolder(PublicCardHolder):
 
   def public_unrendered_data(self):
     return { **super().public_unrendered_data(), **{ "deck_size": self.deck_size() } }
+
+  def draw_top_card(self):
+    if len(self.deck) == 0:
+      return (self, [])
+    else:
+      clone = copy(self)
+      card = self.deck[-1]
+      clone.deck = self.deck[:-1]
+      return (self, [card])
