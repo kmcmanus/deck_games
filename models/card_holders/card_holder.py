@@ -13,7 +13,7 @@ class CardHolder(PublicCardHolder):
     super().__init__(name, revealed)
     self.token = token
     self.deck = deck
-    self._valid_locations += "deck"
+    self._valid_locations += ["deck"]
 
   def deck_size(self):
     """ Returns the size of the deck """
@@ -29,4 +29,4 @@ class CardHolder(PublicCardHolder):
       clone = copy(self)
       card = self.deck[-1]
       clone.deck = self.deck[:-1]
-      return (self, [card])
+      return (clone, [card])

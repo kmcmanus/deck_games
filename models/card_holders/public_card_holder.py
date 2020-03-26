@@ -19,7 +19,7 @@ class PublicCardHolder(object):
   def add_cards_to(self, location, cards):
     if location in self._valid_locations:
       clone = copy(self)
-      setattr(clone, location, getattr(self, location) ++ cards)
+      setattr(clone, location, getattr(self, location) + cards)
       return clone
     return self
 

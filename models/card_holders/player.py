@@ -11,7 +11,7 @@ class Player(CardHolder):
     """
     super().__init__(name, code, revealed, deck)
     self.hand = hand
-    self._valid_locations += "hand"
+    self._valid_locations += ["hand"]
 
   def unrendered_data(self):
     return { **super().public_unrendered_data(), **{

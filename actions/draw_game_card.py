@@ -19,6 +19,7 @@ class DrawGameCard(object):
       return (None, InvalidToken(self.code))
 
     (cardless_game, cards) = game.draw_top_card()
+    print(cards)
 
     updated_player = player.add_cards_to(self.destination, cards)
 

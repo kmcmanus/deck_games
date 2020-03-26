@@ -17,7 +17,7 @@ class Game(CardHolder):
     self.players = players
     self.started = started
     self.discard = discard
-    self._valid_locations += "discard"
+    self._valid_locations += ["discard"]
 
   def leader(self):
     for p in self.players:
@@ -47,5 +47,5 @@ class Game(CardHolder):
 
   def including_updated_player(self, player_code, new_player):
     new_game = copy(self)
-    new_game.players = [ p if p.token != player_code else new_player ]
+    new_game.players = [ p if p.token != player_code else new_player for p in self.players ]
     return new_game

@@ -192,16 +192,16 @@
       <p>Please wait for the leader to start the game.</p>
     </div>
     <div id='deck-actions' class='bean actions' style='display: none'>
-      <button>Draw Card</button>
-      <button>Play Card to Me</button>
-      <button>Play Card to Center</button>
+      <button class='draw-from-deck' data-destination='hand'>Draw Card</button>
+      <button class='draw-from-deck' data-destination='space'>Play Card to Me</button>
+      <button class='draw-from-deck' data-destination='center'>Play Card to Center</button>
       <button class='cancel'>Cancel</button>
     </div>
   </body>
   <script>
   $(document).ready(function() {
-    var code = null;
-    var token = null;
+    var playerCode = null;
+    var gameToken = null;
     function card_html(card) {
       return `<span class='card' style='color: ${card.color};' data-text="${card.text}">${card.name}</span>`
     }
@@ -240,12 +240,10 @@
 
         $('#others').html(other_players.map(other_player_html).join(''));
 
-        console.log(game_cards);
         $('#deckspace .deck').html(game_cards.deck_size);
         $('#deckspace .discard').html(game_cards.discard.length);
         $('#playspace').html(game_cards.revealed.map(card_html).join(''));
 
-        console.log(player);
         $('.player .name').html(player.name);
         $('.player .deck').html(player.deck_size);
         $('.player .revealed').html(player.revealed.map(card_html).join(''));
@@ -269,15 +267,15 @@
     });
     $('#join-game button').click(function() {
       var playerName = $('#join-game .name').val();
-      token = $('#join-game .game-code').val();
-      $.post(`/games/${token}/join/${playerName}`, function(rawResult) {
+      gameToken = $('#join-game .game-code').val();
+      $.post(`/games/${gameToken}/join/${playerName}`, function(rawResult) {
         var result = JSON.parse(rawResult);
         // TODO: check for invalid token
-        code = result.code;
+        playerCode = result.code;
         result.players.forEach(p => $('#player-lobby .player-list').append(`<li>${p}</li>`));
         $('#join-game').hide();
         $('#player-lobby').show();
-        setTimeout(function() { ping(code, token, 'loading'); }, 1000);
+        setTimeout(function() { ping(playerCode, gameToken, 'loading'); }, 1000);
       });
     });
     $('#start-game button').click(function() {
@@ -286,14 +284,14 @@
       $.post(`/games/create/${deckName}/${playerName}`, function(rawResult) {
         var result = JSON.parse(rawResult);
         // TODO: check for invalid deck
-        code = result.code;
-        token = result.token;
+        playerCode = result.code;
+        gameToken = result.token;
         $('#start-game').hide();
         $('#leader-lobby').show();
-        $('#leader-lobby .token-holder').text(token);
-        setTimeout(function() { ping(code, token, 'loading'); }, 1000);
+        $('#leader-lobby .token-holder').text(gameToken);
+        setTimeout(function() { ping(playerCode, gameToken, 'loading'); }, 1000);
         $('#leader-lobby button').click(function() {
-          $.post(`/games/${token}/start/${code}`, function(rawResult) {
+          $.post(`/games/${gameToken}/start/${playerCode}`, function(rawResult) {
             parseRawState(rawResult, 'waiting');
           });
         });
@@ -302,10 +300,18 @@
     $('.deck').click(function() {
       $('.actions').hide();
       $('#deck-actions').show();
-      $('$deck-actions').data('location', $(this).data('location'));
+      $('#deck-actions').data('location', $(this).data('location'));
     });
     $('.actions .cancel').click(function() {
       $(this).closest('.actions').hide();
+    });
+    $('.draw-from-deck').click(function() {
+      var location=$(this).closest('.actions').data('location');
+      var destination=$(this).data('destination');
+      var path = `/games/${gameToken}/draw_${location}_card_to/${playerCode}/${destination}`;
+      $.post(path, function(rawResult) {
+        var result = parseRawState(rawResult, 'playing');
+      });
     });
   });
   </script>
