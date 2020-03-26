@@ -7,3 +7,5 @@ from actions.shuffle_my_deck import ShuffleMyDeck
 from actions.move_cards import MoveCards
 from actions.move_card import MoveCard
 from actions.give_card import GiveCard
+from actions.draw_player_card import DrawPlayerCard
+from actions.draw_game_card import DrawGameCard

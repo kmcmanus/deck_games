@@ -17,8 +17,6 @@ def resolve_action(action):
       games.save_game(game)
     return state.render()
 
-# TODO add routes to draw from decks
-
 @app.route('/')
 def hello_world():
   return 'Hello, World!'
@@ -62,3 +60,11 @@ def move_card(token, code, source, destination, card_name):
 @app.route('/games/<token>/give/<code>/<card_name>/<player_name>', methods=['POST'])
 def give_card(token, code, card_name, player_name):
   return resolve_action(actions.GiveCard(token, code, card_name, player_name))
+
+@app.route('/games/<token>/draw_player_card_to/<code>/<destination>', methods=['POST'])
+def draw_player_card(token, code, destination):
+  return resolve_action(actions.DrawPlayerCard(token, code, destination))
+
+@app.route('/games/<token>/draw_game_card_to/<code>/<destination>', methods=['POST'])
+def draw_game_card(token, code, destination):
+  return resolve_action(actions.DrawGameCard(token, code, destination))
