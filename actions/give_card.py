@@ -27,7 +27,7 @@ class GiveCard(object):
     (cardless_player, card) = player.take_card_from("hand", self.card_name)
     if len(card) == 0:
       return (None, UnknownCard(self.card_name))
-    carded_player = recipient.add_cards_to("hand", card)
+    carded_player = recipient.add_cards_to("hand", card)[0]
 
     updated_game = game\
         .including_updated_player(cardless_player.code, cardless_player)\

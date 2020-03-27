@@ -1,4 +1,5 @@
 from copy import copy
+import random
 class PublicCardHolder(object):
 
   def __init__(self, name, revealed=[]):
@@ -17,13 +18,29 @@ class PublicCardHolder(object):
       "revealed": [ r.unrendered_data() for r in self.revealed ]
     }
 
-  def add_cards_to(self, full_location, cards):
+  def find_card_in(self, place, card_name):
+    for card in place:
+      if card.name == card_name:
+        return card
+    return None
+
+  def change_cards(self, full_location, func):
     (prefix, location) = full_location.split("_")
     if prefix == self._prefix and location in self._valid_locations:
+      cards = getattr(self, location)
       clone = copy(self)
-      setattr(clone, location, getattr(self, location) + cards)
-      return clone
-    return self
+      changed = func(cards)
+      setattr(clone, location, changed)
+      return (clone, changed)
+    return (self, [])
+
+  def shuffle(self, full_location):
+    return self.change_cards(full_location, random.shuffle)
+
+  def add_cards_to(self, full_location, cards):
+    return self.change_cards(full_location, lambda c: c + cards)
+
+  # TODO genericize the below into a 'remove_cards' function
 
   def take_cards_from(self, full_location):
     (prefix, location) = full_location.split("_")
@@ -42,12 +59,6 @@ class PublicCardHolder(object):
         getattr(clone, location).remove(card)
         return (clone, [card])
     return (self, [])
-
-  def find_card_in(self, place, card_name):
-    for card in place:
-      if card.name == card_name:
-        return card
-    return None
 
   def draw_top_card(self, full_location):
     (prefix, location) = full_location.split("_")

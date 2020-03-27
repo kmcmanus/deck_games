@@ -2,8 +2,7 @@ from actions.create_game import CreateGame
 from actions.join_game import JoinGame
 from actions.start_game import StartGame
 from actions.ping import Ping
-from actions.shuffle_game_deck import ShuffleGameDeck
-from actions.shuffle_my_deck import ShuffleMyDeck
+from actions.shuffle import Shuffle
 from actions.move_cards import MoveCards
 from actions.move_card import MoveCard
 from actions.give_card import GiveCard

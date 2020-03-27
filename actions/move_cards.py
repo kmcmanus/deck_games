@@ -28,10 +28,10 @@ class MoveCards(object):
 
     cards = game_card ++ player_card
 
-    updated_player = cardless_player.add_cards_to(self.destination, cards)
+    updated_player = cardless_player.add_cards_to(self.destination, cards)[0]
 
     updated_game = cardless_game\
-        .add_cards_to(self.destination, cards)\
+        .add_cards_to(self.destination, cards)[0]\
         .including_updated_player(self.code, updated_player)
 
     state = Playing(updated_player, updated_game.players, updated_game)
