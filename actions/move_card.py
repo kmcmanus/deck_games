@@ -21,7 +21,7 @@ class MoveCard(object):
       return (None, InvalidToken(self.code))
 
     # don't let them draw from a deck
-    if self.source == "deck":
+    if "deck" in self.source:
       return (None, UnknownLocation("deck"))
 
     (cardless_game, game_cards) = game.take_card_from(self.source, self.card_name)

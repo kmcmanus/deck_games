@@ -48,3 +48,14 @@ class PublicCardHolder(object):
       if card.name == card_name:
         return card
     return None
+
+  def draw_top_card(self, full_location):
+    (prefix, location) = full_location.split("_")
+    if prefix == self._prefix and location in self._valid_locations:
+      cards = getattr(self, location)
+      if len(cards) > 0:
+        clone = copy(self)
+        card = cards[-1]
+        clone.deck = cards[:-1]
+        return (clone, [card])
+    return (self, [])

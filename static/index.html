@@ -157,12 +157,12 @@
     <div id='playspace' class='large' style='display: none'>
     </div>
     <div id='deckspace' style='display: none'>
-      <span class='deck large' data-location='game'></span>
+      <span class='deck large' data-location='game_deck'></span>
       <span class='discard large'></span>
     </div>
     <div class='player' style='display: none'>
       <div class='name'></div>
-      <span class='deck large' data-location='player'></span>
+      <span class='deck large' data-location='player_deck'></span>
     </div>
     <div class='player' style='display: none'>
       <span class='revealed wallet large'>
@@ -308,7 +308,7 @@
     $('.draw-from-deck').click(function() {
       var location=$(this).closest('.actions').data('location');
       var destination=$(this).data('destination');
-      var path = `/games/${gameToken}/draw_${location}_card_to/${playerCode}/${destination}`;
+      var path = `/games/${gameToken}/draw_card/${playerCode}/${location}/${destination}`;
       $.post(path, function(rawResult) {
         var result = parseRawState(rawResult, 'playing');
       });
