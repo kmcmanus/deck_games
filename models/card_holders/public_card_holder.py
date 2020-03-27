@@ -9,6 +9,7 @@ class PublicCardHolder(object):
     self.name = name
     self.revealed = revealed
     self._valid_locations = ["revealed"]
+    self._prefix = "public"
 
   def public_unrendered_data(self):
     return {
@@ -16,22 +17,25 @@ class PublicCardHolder(object):
       "revealed": [ r.unrendered_data() for r in self.revealed ]
     }
 
-  def add_cards_to(self, location, cards):
-    if location in self._valid_locations:
+  def add_cards_to(self, full_location, cards):
+    (prefix, location) = full_location.split("_")
+    if prefix == self._prefix and location in self._valid_locations:
       clone = copy(self)
       setattr(clone, location, getattr(self, location) + cards)
       return clone
     return self
 
-  def take_cards_from(self, location):
-    if location in self._valid_locations:
+  def take_cards_from(self, full_location):
+    (prefix, location) = full_location.split("_")
+    if prefix == self._prefix and location in self._valid_locations:
       clone = copy(self)
       setattr(clone, location, [])
       return (clone, getattr(self, location))
     return (self, [])
 
-  def take_card_from(self, location, card_name):
-    if location in self._valid_locations:
+  def take_card_from(self, full_location, card_name):
+    (prefix, location) = full_location.split("_")
+    if prefix == self._prefix and location in self._valid_locations:
       card = self.find_card_in(getattr(self, location), card_name)
       if card:
         clone = copy(self)

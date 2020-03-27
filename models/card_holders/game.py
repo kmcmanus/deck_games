@@ -18,6 +18,7 @@ class Game(CardHolder):
     self.started = started
     self.discard = discard
     self._valid_locations += ["discard"]
+    self._prefix = "game"
 
   def leader(self):
     for p in self.players:

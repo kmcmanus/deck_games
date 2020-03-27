@@ -14,6 +14,7 @@ class CardHolder(PublicCardHolder):
     self.token = token
     self.deck = deck
     self._valid_locations += ["deck"]
+    self._prefix = "card_holder"
 
   def deck_size(self):
     """ Returns the size of the deck """
