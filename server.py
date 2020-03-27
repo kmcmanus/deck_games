@@ -63,4 +63,4 @@ def give_card(token, code, card_name, player_name):
 
 @app.route('/games/<token>/draw_card/<code>/<source>/<destination>', methods=['POST'])
 def draw_player_card(token, code, source, destination):
-  return resolve_action(actions.DrawPlayerCard(token, code, source, destination))
+  return resolve_action(actions.DrawCard(token, code, source, destination))

@@ -5,7 +5,7 @@ from game_states import Playing, InvalidToken, UnknownLocation
 from data import games
 
 class DrawCard(object):
-  def __init__(self, token, code, destination):
+  def __init__(self, token, code, source, destination):
     self.code = code
     self.token = token
     self.source = source
@@ -22,7 +22,7 @@ class DrawCard(object):
     (cardless_game, game_cards) = game.draw_top_card(self.source)
     (cardless_player, player_cards) = player.draw_top_card(self.source)
 
-    cards = game_cards ++ player_cards
+    cards = game_cards + player_cards
 
     updated_player = cardless_player.add_cards_to(self.destination, cards)
 
