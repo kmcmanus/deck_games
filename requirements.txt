@@ -1,6 +1,5 @@
 chardet==2.3.0
 click==7.1.1
-command-not-found==0.3
 Flask==1.1.1
 gunicorn==20.0.4
 itsdangerous==1.1.0
@@ -23,4 +22,3 @@ ufw==0.35
 unattended-upgrades==0.1
 urllib3==1.13.1
 Werkzeug==1.0.0
-youtube-dl==2020.3.8
