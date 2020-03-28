@@ -165,7 +165,7 @@
     </div>
     <div id='deckspace' style='display: none'>
       <span class='deck large card-option' data-actions='#deck-actions' data-location='game_deck'></span>
-      <span class='discard large'></span>
+      <span class='discard large card-option' data-actions='#deck-actions' data-location='game_discard'></span>
     </div>
     <div class='player' style='display: none'>
       <div class='name'></div>
@@ -202,11 +202,12 @@
       <button class='draw-from-deck' data-destination='player_hand'>Draw Card</button>
       <button class='draw-from-deck' data-destination='player_revealed'>Play Card to Me</button>
       <button class='draw-from-deck' data-destination='game_revealed'>Play Card to Center</button>
-      <button class='draw-from-deck' data-destination='game_revealed'>Draw All</button>
-      <button data-destination='player_hand'>Draw All</button>
-      <button data-destination='player_revealed'>Play All to Me</button>
-      <button data-destination='game_revealed'>Play All to Center</button>
-      <button data-destination='game_discarded'>Discard All</button>
+      <button class='move-deck' data-destination='player_hand'>Draw All</button>
+      <button class='move-deck' data-destination='player_revealed'>Play All to Me</button>
+      <button class='move-deck' data-destination='game_revealed'>Play All to Center</button>
+      <button class='move-deck' data-destination='game_discard'>Discard All</button>
+      <button class='move-deck' data-destination='game_deck'>Move all to Game Deck</button>
+      <button class='move-deck' data-destination='player_deck'>Move all to My Deck</button>
       <button class='shuffle-deck'>Shuffle</button>
       <button class='cancel'>Cancel</button>
     </div>
@@ -214,8 +215,8 @@
       <button class='move-card-to' data-destination='player_revealed'>Play to My Space</button>
       <button class='move-card-to' data-destination='game_revealed'>Play to Center Space</button>
       <button class='move-card-to' data-destination='player_deck'>Put on My Deck</button>
-      <button class='move-card-to' data-destination='player_deck'>Put on Game Deck</button>
-      <button class='move-card-to' data-destination='game_discarded'>Discard</button>
+      <button class='move-card-to' data-destination='game_deck'>Put on Game Deck</button>
+      <button class='move-card-to' data-destination='game_discard'>Discard</button>
       <button class='give-card'>Give Away</button>
       <button class='cancel'>Cancel</button>
     </div>
@@ -266,6 +267,7 @@
         $('#others').html(other_players.map(other_player_html).join(''));
 
         $('#deckspace .deck').html(game_cards.deck_size);
+        console.log(game_cards);
         $('#deckspace .discard').html(game_cards.discard.length);
         $('#playspace').html(game_cards.revealed.map(c => card_html(c, "game_revealed")).join(''));
 
@@ -351,6 +353,14 @@
       var location=$(this).closest('.actions').data('location');
       var destination=$(this).data('destination');
       var path = `/games/${gameToken}/draw_card/${playerCode}/${location}/${destination}`;
+      $.post(path, function(rawResult) {
+        var result = parseRawState(rawResult, 'playing');
+      });
+    });
+    $('.move-deck').click(function() {
+      var location=$(this).closest('.actions').data('location');
+      var destination=$(this).data('destination');
+      var path = `/games/${gameToken}/move/${playerCode}/${location}/${destination}/all`;
       $.post(path, function(rawResult) {
         var result = parseRawState(rawResult, 'playing');
       });
