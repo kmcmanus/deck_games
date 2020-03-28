@@ -1,5 +1,4 @@
 from . import PublicCardHolder
-from copy import copy
 
 class CardHolder(PublicCardHolder):
 

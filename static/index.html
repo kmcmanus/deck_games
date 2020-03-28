@@ -199,6 +199,7 @@
       <button class='draw-from-deck' data-destination='player_hand'>Draw Card</button>
       <button class='draw-from-deck' data-destination='player_revealed'>Play Card to Me</button>
       <button class='draw-from-deck' data-destination='game_revealed'>Play Card to Center</button>
+      <button class='shuffle-deck'>Shuffle</button>
       <button class='cancel'>Cancel</button>
     </div>
   </body>
@@ -316,6 +317,13 @@
       var location=$(this).closest('.actions').data('location');
       var destination=$(this).data('destination');
       var path = `/games/${gameToken}/draw_card/${playerCode}/${location}/${destination}`;
+      $.post(path, function(rawResult) {
+        var result = parseRawState(rawResult, 'playing');
+      });
+    });
+    $('.shuffle-deck').click(function() {
+      var location=$(this).closest('.actions').data('location');
+      var path = `/games/${gameToken}/shuffle/${playerCode}/${location}`;
       $.post(path, function(rawResult) {
         var result = parseRawState(rawResult, 'playing');
       });

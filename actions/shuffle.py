@@ -18,7 +18,7 @@ class Shuffle(object):
     if not player:
       return (None, InvalidToken(self.code))
 
-    updated_player = player.shuffle(self.location)
+    updated_player = player.shuffle(self.location)[0]
     updated_game = game\
         .shuffle(self.location)[0]\
         .including_updated_player(self.code, updated_player)

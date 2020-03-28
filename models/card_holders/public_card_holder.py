@@ -1,5 +1,6 @@
 from copy import copy
 import random
+from helpers import depy
 class PublicCardHolder(object):
 
   def __init__(self, name, revealed=[]):
@@ -35,7 +36,7 @@ class PublicCardHolder(object):
     return (self, [])
 
   def shuffle(self, full_location):
-    return self.change_cards(full_location, random.shuffle)
+    return self.change_cards(full_location, depy(random.shuffle))
 
   def add_cards_to(self, full_location, cards):
     return self.change_cards(full_location, lambda c: c + cards)

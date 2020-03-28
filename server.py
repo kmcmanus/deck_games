@@ -43,7 +43,7 @@ def ping(token, code):
 
 @app.route('/games/<token>/shuffle/<code>/<location>', methods=['POST'])
 def shuffle_game_deck(token, code, location):
-  return resolve_action(actions.Shuffe(token, code, location))
+  return resolve_action(actions.Shuffle(token, code, location))
 
 @app.route('/games/<token>/move/<code>/<source>/<destination>/all', methods=['POST'])
 def move_cards(token, code, source, destination):
