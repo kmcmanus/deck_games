@@ -26,9 +26,14 @@ class Game(CardHolder):
         return p
     return None
 
+  def get_player_by_name(self, name):
+    for p in self.players:
+      if p.name == name:
+        return p
+    return None
+
   def public_unrendered_data(self):
     return { **super().public_unrendered_data(), **{ "discard": [ d.unrendered_data() for d in self.discard ] } }
-
 
   def start(self):
     new_game = copy(self)

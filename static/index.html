@@ -386,9 +386,21 @@
         .map((i, j) => $(j).text())
         .get()
         .map(cardRecipient)
-        .join('');
+        .join(' ');
       $('#recipients').html(result);
       $('#give-actions').show();
+    });
+    $('#recipients').on('click', 'button', function() {
+      var holder = $('#card-actions');
+      var location=holder.data('location');
+      var card=holder.data('card');
+      var destination=$(this).text();
+      var path = `/games/${gameToken}/give/${playerCode}/${location}/${card}/${destination}`;
+      $.post(path, function(rawResult) {
+        var result = parseRawState(rawResult, 'playing');
+      });
+      $('.selected').removeClass('selected');
+      $('.actions').hide();
     });
   });
   </script>
