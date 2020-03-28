@@ -1,6 +1,6 @@
 from flask import Flask, request
-from data import games, decks
-import actions
+from api.data import games, decks
+import api.actions
 import json
 import threading
 import collections

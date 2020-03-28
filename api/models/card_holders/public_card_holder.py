@@ -1,6 +1,6 @@
 from copy import copy
 import random
-from helpers import depy
+from api.helpers import depy
 class PublicCardHolder(object):
 
   def __init__(self, name, revealed=[]):

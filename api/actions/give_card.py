@@ -1,9 +1,9 @@
 
-from models.card_holders import Game, Player
+from api.models.card_holders import Game, Player
 
-from game_states import Playing, InvalidToken
+from api.game_states import Playing, InvalidToken
 
-from data import games
+from api.data import games
 
 class GiveCard(object):
   def __init__(self, token, code, source, card_name, recipient_name):

@@ -1,4 +1,4 @@
-from models import Deck, Card
+from api.models import Deck, Card
 
 grey = '#9E9E9E'
 

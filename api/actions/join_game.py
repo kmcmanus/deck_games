@@ -1,10 +1,10 @@
-from models.card_holders import Game, Player
+from api.models.card_holders import Game, Player
 
-from game_states import JoinedGame, InvalidToken
+from api.game_states import JoinedGame, InvalidToken
 
-from helpers import generate_token
+from api.helpers import generate_token
 
-from data import games
+from api.data import games
 
 class JoinGame(object):
   def __init__(self, token, name):

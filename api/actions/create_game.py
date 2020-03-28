@@ -1,10 +1,10 @@
-from models.card_holders import Game, Player
+from api.models.card_holders import Game, Player
 
-from game_states import CreatedGame, UnknownDeck
+from api.game_states import CreatedGame, UnknownDeck
 
-from data import DECK_LOOKUP, games
+from api.data import DECK_LOOKUP, games
 
-from helpers import generate_token
+from api.helpers import generate_token
 
 class CreateGame(object):
   def __init__(self, deck_name, player_name):

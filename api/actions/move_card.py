@@ -1,8 +1,8 @@
-from models.card_holders import Game, Player
+from api.models.card_holders import Game, Player
 
-from game_states import Playing, InvalidToken, UnknownLocation
+from api.game_states import Playing, InvalidToken, UnknownLocation
 
-from data import games
+from api.data import games
 
 class MoveCard(object):
   def __init__(self, token, code, card_name, source, destination):

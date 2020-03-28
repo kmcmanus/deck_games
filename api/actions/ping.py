@@ -1,8 +1,8 @@
-from models.card_holders import Game, Player
+from api.models.card_holders import Game, Player
 
-from game_states import Playing, InvalidToken, GameNotStarted
+from api.game_states import Playing, InvalidToken, GameNotStarted
 
-from data import games
+from api.data import games
 
 class Ping(object):
   def __init__(self, token, code):
