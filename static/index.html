@@ -220,6 +220,12 @@
       <button class='give-card'>Give Away</button>
       <button class='cancel'>Cancel</button>
     </div>
+    <div id='give-actions' class='bean actions' style='display: none'>
+      <div id='recipients'>
+
+      </div>
+      <button class='cancel'>Cancel</button>
+    </div>
   </body>
   <script>
   $(document).ready(function() {
@@ -371,6 +377,18 @@
       $.post(path, function(rawResult) {
         var result = parseRawState(rawResult, 'playing');
       });
+    });
+    function cardRecipient(other) {
+      return `<button data-name='${other}'>${other}</button>`;
+    }
+    $('.give-card').click(function() {
+      var result = $('#others .other .name')
+        .map((i, j) => $(j).text())
+        .get()
+        .map(cardRecipient)
+        .join('');
+      $('#recipients').html(result);
+      $('#give-actions').show();
     });
   });
   </script>

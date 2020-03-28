@@ -53,9 +53,9 @@ def move_cards(token, code, source, destination):
 def move_card(token, code, source, destination, card_name):
   return resolve_action(actions.MoveCard(token, code, card_name.encode('ascii', 'xmlcharrefreplace').decode('utf-8'), source, destination))
 
-@app.route('/games/<token>/give/<code>/<card_name>/<player_name>', methods=['POST'])
-def give_card(token, code, card_name, player_name):
-  return resolve_action(actions.GiveCard(token, code, card_name.encode('ascii', 'xmlcharrefreplace').decode('utf-8'), player_name))
+@app.route('/games/<token>/give/<code>/<source>/<card_name>/<player_name>', methods=['POST'])
+def give_card(token, code, source, card_name, player_name):
+  return resolve_action(actions.GiveCard(token, code, source, card_name.encode('ascii', 'xmlcharrefreplace').decode('utf-8'), player_name))
 
 @app.route('/games/<token>/draw_card/<code>/<source>/<destination>', methods=['POST'])
 def draw_player_card(token, code, source, destination):

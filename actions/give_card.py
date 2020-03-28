@@ -6,9 +6,10 @@ from game_states import Playing, InvalidToken
 from data import games
 
 class GiveCard(object):
-  def __init__(self, token, code, card_name, recipient_name):
+  def __init__(self, token, code, source, card_name, recipient_name):
     self.token = token
     self.code = code
+    self.source = source
     self.card_name = card_name
     self.recipient_name = recipient_name
 
@@ -24,10 +25,10 @@ class GiveCard(object):
     if not recipient:
       return (None, InvalidToken(self.recipient_name))
 
-    (cardless_player, card) = player.take_card_from("hand", self.card_name)
+    (cardless_player, card) = player.take_card_from(self.source, self.card_name)
     if len(card) == 0:
       return (None, UnknownCard(self.card_name))
-    carded_player = recipient.add_cards_to("hand", card)[0]
+    carded_player = recipient.add_cards_to("player_hand", card)[0]
 
     updated_game = game\
         .including_updated_player(cardless_player.code, cardless_player)\
