@@ -107,6 +107,10 @@
         padding-right: 5px;
       }
 
+      .selected {
+        color: #FFD600;
+      }
+
     </style>
   </head>
   <body>
@@ -298,11 +302,14 @@
       });
     });
     $('.deck').click(function() {
+      $('.selected').removeClass('selected');
+      $(this).addClass('selected');
       $('.actions').hide();
       $('#deck-actions').show();
       $('#deck-actions').data('location', $(this).data('location'));
     });
     $('.actions .cancel').click(function() {
+      $('.selected').removeClass('selected');
       $(this).closest('.actions').hide();
     });
     $('.draw-from-deck').click(function() {
