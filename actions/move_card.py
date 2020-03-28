@@ -20,6 +20,7 @@ class MoveCard(object):
     if not player:
       return (None, InvalidToken(self.code))
 
+
     # don't let them draw from a deck
     if "deck" in self.source:
       return (None, UnknownLocation("deck"))
@@ -27,7 +28,7 @@ class MoveCard(object):
     (cardless_game, game_cards) = game.take_card_from(self.source, self.card_name)
     (cardless_player, player_cards) = player.take_card_from(self.source, self.card_name)
 
-    cards = game_cards ++ player_cards
+    cards = game_cards + player_cards
 
     updated_player = cardless_player.add_cards_to(self.destination, cards)[0]
 
