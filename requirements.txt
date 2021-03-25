@@ -12,7 +12,7 @@ pygobject==3.20.0
 python-apt==1.1.0b1+ubuntu0.16.4.8
 python-debian==0.1.27
 python-systemd==231
-PyYAML==3.11
+PyYAML==5.4
 requests==2.9.1
 simplejson==3.17.0
 six==1.10.0
