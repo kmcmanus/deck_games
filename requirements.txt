@@ -20,5 +20,5 @@ ssh-import-id==5.5
 ubuntu-advantage-tools==19.6
 ufw==0.35
 unattended-upgrades==0.1
-urllib3==1.13.1
+urllib3==1.26.5
 Werkzeug==1.0.0
